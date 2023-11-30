@@ -33,5 +33,5 @@ For any questions you may have, please visit my Github profile:
 
 ## Demo
 
-Please visit live link : 
-Use fake account => email: `test@test.com` / password: `123456789`
+- Please visit live link : [heroku link](https://polar-meadow-82431-786b062632ba.herokuapp.com/)
+- Use fake account => email: `test@test.com` / password: `123456789`
