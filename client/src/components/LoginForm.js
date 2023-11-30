@@ -1,18 +1,26 @@
 // see SignupForm.js for comments
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
-import Auth from "../utils/auth";
-// refactored to use GraphQL API instead of RESTful API
-import { useMutation } from "@apollo/client";
+
+// import useMutation and LOGIN-USER
+import { useMutation } from "@apollo/react-hooks";
 import { LOGIN_USER } from "../utils/mutations";
+
+import Auth from "../utils/auth";
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
-
-  const [login, { loading }] = useMutation(LOGIN_USER);
-
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+
+  // declaring loginUser with useMutation
+  const [loginUser, { error }] = useMutation(LOGIN_USER);
+
+  useEffect(() => {
+    if (error) setShowAlert(true);
+    else setShowAlert(false);
+  }, [error])
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -29,15 +37,15 @@ const LoginForm = () => {
       event.stopPropagation();
     }
 
+    // use loginUser function
     try {
-      const { data } = await login({
-        variables: userFormData,
+      const { data } = await loginUser({
+        variables: { ...userFormData },
       });
 
       Auth.login(data.login.token);
-    } catch (err) {
-      console.error(err);
-      setShowAlert(true);
+    } catch (e) {
+      console.error(e);
     }
 
     setUserFormData({
@@ -47,10 +55,6 @@ const LoginForm = () => {
     });
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  
   return (
     <>
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
@@ -58,43 +62,43 @@ const LoginForm = () => {
           dismissible
           onClose={() => setShowAlert(false)}
           show={showAlert}
-          variant='danger'
+          variant="danger"
         >
           Something went wrong with your login credentials!
         </Alert>
         <Form.Group>
-          <Form.Label htmlFor='email'>Email</Form.Label>
+          <Form.Label htmlFor="email">Email</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='Your email'
-            name='email'
+            type="text"
+            placeholder="Your email"
+            name="email"
             onChange={handleInputChange}
             value={userFormData.email}
             required
           />
-          <Form.Control.Feedback type='invalid'>
+          <Form.Control.Feedback type="invalid">
             Email is required!
           </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group>
-          <Form.Label htmlFor='password'>Password</Form.Label>
+          <Form.Label htmlFor="password">Password</Form.Label>
           <Form.Control
-            type='password'
-            placeholder='Your password'
-            name='password'
+            type="password"
+            placeholder="Your password"
+            name="password"
             onChange={handleInputChange}
             value={userFormData.password}
             required
           />
-          <Form.Control.Feedback type='invalid'>
+          <Form.Control.Feedback type="invalid">
             Password is required!
           </Form.Control.Feedback>
         </Form.Group>
         <Button
           disabled={!(userFormData.email && userFormData.password)}
-          type='submit'
-          variant='success'
+          type="submit"
+          variant="success"
         >
           Submit
         </Button>
