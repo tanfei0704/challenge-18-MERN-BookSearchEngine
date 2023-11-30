@@ -12,7 +12,7 @@ The Book search engine uses the MERN stack and with a React front end, MongoDB d
 
 ## Installation:
 
-Please clone the repo as . Install dependencies with npm i. Run ```npm run develop``` to run the server. 
+Please clone the repo as `git@github.com:tanfei0704/challenge-18-MERN-BookSearchEngine.git `. Install dependencies with npm i. Run ```npm run develop``` to run the server. 
 
 
 ## Technologies
@@ -29,7 +29,7 @@ For more information about licenses, please visit:
 ## Questions:
 
 For any questions you may have, please visit my Github profile:
-
+[github](https://github.com/tanfei0704/challenge-18-MERN-BookSearchEngine/tree/main)
 
 ## Demo
 
