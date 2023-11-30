@@ -34,3 +34,4 @@ For any questions you may have, please visit my Github profile:
 ## Demo
 
 Please visit live link : 
+Use fake account => email: `test@test.com` / password: `123456789`
